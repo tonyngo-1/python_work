@@ -5,9 +5,7 @@ import pprint
 base_url = "https://analyze.intezer.com/api/v2-0"
 response = requests.post(
     base_url + "/get-access-token",
-    json={
-        "api_key": "35cd0aeb3e663ff96acf3b5c3f4f03973edca329fc5afe67a99e41367a7d2f6c"
-    },
+    json={"api_key": ""},
 )
 response.raise_for_status()
 session = requests.session()
