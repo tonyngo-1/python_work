@@ -23,9 +23,6 @@ session.headers["Authorization"] = session.headers["Authorization"] = (
 malicious_url = input("Enter malicious URL: ")
 malicious_url = "google.com"
 params = {"url": malicious_url}
-response = requests.post(
-    base_url + "/get-access-token", json={"api_key": "YOUR API KEY"}
-)
 response = session.post(base_url + "/url", params=params)
 response = session.post(
     "https://analyze.intezer.com/api/v2-0/url", params={"url": "https://intezer.com"}
