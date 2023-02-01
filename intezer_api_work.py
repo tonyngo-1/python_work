@@ -28,7 +28,6 @@ response = session.post(
     "https://analyze.intezer.com/api/v2-0/url", params={"url": "https://intezer.com"}
 )
 
-
 # Malicious URL Scan Result
 verdict = "491367cc-295b-45bb-821f-5fc667720ef6"
 params = {"analysis_id*": verdict}
