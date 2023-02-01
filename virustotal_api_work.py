@@ -17,66 +17,46 @@ url_id = vt.url_id(get_url)
 url = client.get_object("/urls/{}", url_id)
 
 # Initialize dictionary
-storage_dict = {"url": "", "malicious_verdicts": "", "vendor_verdicts": ""}
+storage_dict = {"analysis_url": "", "non_clean_verdicts": "", "vendor_verdicts": ""}
 
 # Store URL to dict
-storage_dict["url"] = url.url
+try:
+    storage_dict["analysis_url"] = url.url
+except AttributeError:
+    storage_dict["analysis_url"] = "N/A"
 
 # Store malicious verdicts to dict
-storage_dict["malicious_verdicts"] = url.last_analysis_stats["malicious"]
+try:
+    # malicious: <integer> number of reports saying that is malicious.
+    # suspicious: <integer> number of reports saying that is suspicious.
+    # timeout: <integer> number of timeouts when checking this URL.
+    # undetected: <integer> number of reports saying that is undetected
+    malicious_verdicts_number = (
+        url.last_analysis_stats["malicious"]
+        + url.last_analysis_stats["suspicious"]
+        + url.last_analysis_stats["undetected"]
+    )
+    storage_dict["malicious_verdicts"] = malicious_verdicts_number
+except AttributeError:
+    storage_dict["malicious_verdicts"] = "N/A"
 
 # Store providers where analysis is not considered clean
-list_of_values = list(url.last_analysis_results.values())
+try:
+    list_of_values = list(url.last_analysis_results.values())
 
-engine_dict = []
+    engine_dict = []
 
-for item in list_of_values:
-    if item["result"] != "clean":
-        engine_dict.append(item["engine_name"])
+    for item in list_of_values:
+        if item["result"] != "clean":
+            engine_dict.append(item["engine_name"])
 
-storage_dict["vendor_verdicts"] = engine_dict
+    storage_dict["vendor_verdicts"] = engine_dict
+except AttributeError:
+    storage_dict["malicious_verdicts"] = "N/A"
 
-# print("dictionary print:")
-# print(storage_dict)
-
+# Convert dictionary object as iterable storage JSON object
 json_object = json.dumps(storage_dict, indent=4)
-# print(json_object)
-
-print("json print:")
 print(json_object)
-# print(engine_dict)
-# Store nested dictionary results
-# print(list(url.last_analysis_results.values()))
-# {'category': 'harmless', 'result': 'clean', 'method': 'blacklist', 'engine_name': 'PhishFort'}
-# if category == "suspicious" or "maicious"
-#   take result, and store in dictionary
-
-
-# print(url.last_analysis_results["jj"]["category"])
-#
-
-# new_dict = url.last_analysis_results.values()
-# value_list=list(dict.values())
-# print(list(new_dict["category"]))
-# print(
-#     list(url.last_analysis_results.keys())[
-#         list(url.last_analysis_results.values()).index("Bkav")
-#     ]
-# )
-# print(
-#     list(url.last_analysis_results.keys())[
-#         list(url.last_analysis_results.values()).index("clean")
-#     ]
-# )
-
-# Store description to verdict
-
-# storage_dict.append(url.url)
-# print(storage_dict)
-
-
-# json_object = json.dumps(url.last_analysis_stats, indent=4)
-# print(json_object)
 
 # file information
 # file = client.get_object("/files/44d88612fea8a8f36de82e1278abb02f")
