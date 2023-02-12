@@ -11,7 +11,7 @@ client = vt.Client(virustotal_key)
 # Begin loop
 while True:
     # user_input = input("1: Scan a URL, 2: Scan a file, 3: exit\n")
-    user_input = "2"
+    user_input = "1"
     if user_input == "1":
         # URL pull
         # get_url = input("Enter URL:")
@@ -22,7 +22,7 @@ while True:
         url = client.get_object("/urls/{}", url_id)
 
         # Initialize dictionary
-        storage_dict = []
+        storage_dict = {}
 
         # Store URL to dict
         try:
@@ -63,7 +63,8 @@ while True:
         json_object = json.dumps(storage_dict, indent=4)
 
         print("URL %s will be added to the database" % storage_dict["analysis_url"])
-        # print(json_object)
+        print(json_object)
+        break
 
     elif user_input == "2":
         # print("this will be for file scanning, sha ")
