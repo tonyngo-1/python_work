@@ -1,10 +1,10 @@
-# urlscan.io API usage
+# VirusTotal API usage
 
-This project utilizes the [urlscan.io](urlscan.io) API to parse for a dictionary object which contains results from the requests library.
+This project utilizes the [VirusTotal](virustotal.com) API to parse for a dictionary object which contains results pulled from the official VirusTotal library.
 
 ## Reasoning:
 
-In security, a large portion of work revolves around parsing and figuring out how to interface an API with SOAR platforms to enhance data (i.e. XSOAR, Archer, etc..) I wanted to present a challenge to myself to utilize the urlscan.io API without pulling down a third party library, and just utilizing the requests library from Python. 
+In security, a large portion of work revolves around parsing and figuring out how to interface an API with SOAR platforms to enhance data (i.e. XSOAR, Archer, etc..) This project utilizes the VirusTotal Official Library, which will be graciously provided for us (in some cases) for ease of use in python. 
 
 ## Requirements: 
 
